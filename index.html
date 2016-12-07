@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Phpphp by grazies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Phpphp</h1>
+      <h2 class="project-tagline">A PHP VM implementation in PHP</h2>
+      <a href="https://github.com/grazies/PHPPHP" class="btn">View on GitHub</a>
+      <a href="https://github.com/grazies/PHPPHP/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/grazies/PHPPHP/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="phpphp" class="anchor" href="#phpphp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PHPPHP</h1>
+
+<p><img src="http://i.stack.imgur.com/JarJ0.jpg" alt="YO DAWG"></p>
+
+<p>A PHP VM implementation written in PHP.</p>
+
+<p>This is a basic VM implemented in PHP using the <a href="https://github.com/nikic/PHP-Parser">AST generating parser</a> developed by <a href="https://github.com/nikic" class="user-mention">@nikic</a></p>
+
+<p>To see what's supported so far, check out the opcodes.</p>
+
+<p>Right now, functions (definitions and calls) are supported, if statements (with basic boolean operations), if statements, as are variables and some basic variable operations...</p>
+
+<p>To see the current state of the implementation versus the <a href="https://github.com/php/php-src/tree/master/tests/lang">Core Language Test Suite</a>, check out the <a href="https://github.com/ircmaxell/PHPPHP/blob/master/test-results.html.md">test results file</a>.</p>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+
+<p>To get the dependencies you need to use <a href="http://getcomposer.org">composer</a>:</p>
+
+<pre><code>curl -s https://getcomposer.org/installer | php
+php composer.phar install
+</code></pre>
+
+<p>Grab a cup of coffee while it runs, as it will fetch the entire PHP source code in the process which can take a while (~10 minutes).</p>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
+
+<h2>
+<a id="linuxosx" class="anchor" href="#linuxosx" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linux/OSX</h2>
+
+<p>Use the <code>php.sh</code> shell script to invoke php.php. This requires that <code>php</code> be in your system path.</p>
+
+<pre><code>./php.sh -r "var_dump('foo');"
+</code></pre>
+
+<h2>
+<a id="windows" class="anchor" href="#windows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Windows</h2>
+
+<p>Use the <code>php.bat</code> shell script to invoke php.php. This requires that <code>php.exe</code> be in your system path.</p>
+
+<pre><code>php.bat -r "var_dump('foo');"
+</code></pre>
+
+<h2>
+<a id="manual" class="anchor" href="#manual" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Manual</h2>
+
+<p>You can run the implementation from the command line using the <code>php.php</code> file directly.</p>
+
+<pre><code>php php.php -r "var_dump('foo');"
+</code></pre>
+
+<p>Or with a file:</p>
+
+<pre><code>php php.php ../test.php
+</code></pre>
+
+<p>It only supports relative includes off the base file now (no include path parsing <em>yet</em>)...</p>
+
+<h1>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h1>
+
+<h2>
+<a id="run-tests" class="anchor" href="#run-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>run-tests</h2>
+
+<p>To run the test suite (which mostly fails right now), install composer using the <code>--dev</code> flag (to install the test suite along side php's source code). Then use the <code>run-tests.(sh|bat)</code> file to execute them.</p>
+
+<h3>
+<a id="linuxosx-1" class="anchor" href="#linuxosx-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linux/OSX</h3>
+
+<pre><code>./run-tests.sh
+</code></pre>
+
+<h3>
+<a id="windows-1" class="anchor" href="#windows-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Windows</h3>
+
+<p>Before running tests on Windows, some lines must be removed or commented out from <code>runtests.php</code> (if installed via composer it will be located in <code>vendor/php/php-src/runtests.php</code>). Starting from line 185:</p>
+
+<pre><code>if (function_exists('is_executable') &amp;&amp; !is_executable($php)) {
+    error("invalid PHP executable specified by TEST_PHP_EXECUTABLE  = $php");
+}
+</code></pre>
+
+<p>To run test suite simply type</p>
+
+<pre><code>run-tests.bat
+</code></pre>
+
+<h3>
+<a id="manual-1" class="anchor" href="#manual-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Manual</h3>
+
+<p>If you choose not to install php's source code from composer, but have it elsewhere in your system path, you can use it directly.</p>
+
+<pre><code>php path/to/runtests.php -p path/to/php.sh path/to/tests
+</code></pre>
+
+<h1>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO:</h1>
+
+<p>Major things left to do:</p>
+
+<ol>
+<li>Implement references properly</li>
+<li>Implement Error Handling</li>
+<li>Implement classes and objects</li>
+<li>Implement Output Buffering.</li>
+<li>Refactor output control to use SAPI modules</li>
+<li>Implement true array hash tables (as opposed to the current reliance on the underlying hash table)</li>
+<li>Implement Error Handling</li>
+<li>Implement Exception Handling</li>
+<li>Implement parameter parsing for core functions</li>
+</ol>
+
+<h1>
+<a id="for-the-love-of-god-why" class="anchor" href="#for-the-love-of-god-why" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>For The Love Of God, Why?</h1>
+
+<p>There are a number of reasons why I did this...</p>
+
+<ol>
+<li>It was something that I always wanted to do. For no particular reason other than I wanted to do it. I knew it was possible, but possible and doing it are two very different things.</li>
+<li>It was far easier than I thought. The time to the initial commit (basic working VM) was only about 6 hours of work. So it's not like I spent a year building it...</li>
+<li>It could be a useful education tool. For me learning the intricacies of the <a href="http://lxr.php.net/xref/PHP_TRUNK/Zend/">Zend VM</a> better (I know it fairly well, but knowing and building give two different amounts of knowledge). But also for teaching others how the VM works. By giving a PHP implementation reference, hopefully more people can understand how the C implementation works (they both operate off the same generic implementation at this point).</li>
+<li>It can enable certain interesting things. For example, we could hypothetically build an Opcode optimizer in PHP which parses the generated opcodes and optimizes things (removing redundant opcodes, statically compiling static expressions, etc). Then, we could build a PECL extension that would render those optimized opcodes directly into APC cache (or some other opcode cache mechanism).</li>
+<li>It can be used to quickly mock up future functionality changes. Consider that it's easier to alter a PHP VM simply because you don't need to worry about memory management at all. So whipping up a POC for a significant feature should be a lot easier in PHP than C (at least for many non-full-time C developers).</li>
+<li>It can be used to actually debug PHP code without working knowledge of GDB (and the underlying C structures). I wouldn't recommend this, as the chances of us getting it working 100% the same as the C implementation are practically 0, but it's a concept.</li>
+<li>It could wind up becoming a full implementation (like PYPY). If we can compile the implementation using HipHop, and do some other lower-level tricks, there's a chance we could achieve performance somewhere near the C implementation. I doubt it, but it's possible. Especially if we add a JIT component (or a way of rendering out to machine code certain opcodes)...</li>
+<li><strong>Why not?</strong></li>
+</ol>
+
+<h1>
+<a id="about-the-authors" class="anchor" href="#about-the-authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About The Authors</h1>
+
+<p>Anthony Ferrara - <a href="https://twitter.com/ircmaxell">@ircmaxell</a> <a href="http://blog.ircmaxell.com">blog.ircmaxell.com</a></p>
+
+<p>Nikita Popov - <a href="https://twitter.com/nikita_ppv">@nikita_ppv</a> <a href="http://nikic.github.com/">nikic.github.com</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/grazies/PHPPHP">Phpphp</a> is maintained by <a href="https://github.com/grazies">grazies</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
